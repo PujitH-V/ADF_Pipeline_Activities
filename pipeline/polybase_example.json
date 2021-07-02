@@ -1,0 +1,124 @@
+{
+	"name": "polybase_example",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data polybase",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": true,
+					"secureInput": true
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "salessrc/ml-25m/genome-scores.csv"
+					},
+					{
+						"name": "Destination",
+						"value": "dbo.genome_scores"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"allowPolyBase": true,
+						"polyBaseSettings": {
+							"rejectValue": 0,
+							"rejectType": "value",
+							"useTypeDefault": true
+						}
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "salessrc_Linked_service",
+							"type": "LinkedServiceReference"
+						},
+						"path": "salessrc/incremental"
+					},
+					"enableSkipIncompatibleRow": false,
+					"logSettings": {
+						"enableCopyActivityLog": true,
+						"copyActivityLogSettings": {
+							"logLevel": "Warning",
+							"enableReliableLogging": false
+						},
+						"logLocationSettings": {
+							"linkedServiceName": {
+								"referenceName": "salessrc_Linked_service",
+								"type": "LinkedServiceReference"
+							},
+							"path": "salessink"
+						}
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "movieId",
+									"type": "String"
+								},
+								"sink": {
+									"name": "movieId",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "tagId",
+									"type": "String"
+								},
+								"sink": {
+									"name": "tagId",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "relevance",
+									"type": "String"
+								},
+								"sink": {
+									"name": "relevance",
+									"type": "Single"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ml_ds",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "AzureSynapseAnalyticsTable1",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2021-06-30T05:06:05Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

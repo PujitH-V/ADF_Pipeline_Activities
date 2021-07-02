@@ -1,0 +1,51 @@
+{
+	"name": "customers_parquet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "salessrc_Linked_service",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "customers.parquet",
+				"folderPath": "incremental/Customers_ADLS_Stage1",
+				"fileSystem": "salessrc"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "c_id",
+				"type": "INT32"
+			},
+			{
+				"name": "c_unique_id",
+				"type": "UTF8"
+			},
+			{
+				"name": "c_name",
+				"type": "UTF8"
+			},
+			{
+				"name": "Customer_Account_Created_Timestamp",
+				"type": "INT96"
+			},
+			{
+				"name": "customer_pincode",
+				"type": "UTF8"
+			},
+			{
+				"name": "customer_city",
+				"type": "UTF8"
+			},
+			{
+				"name": "customer_mobile_number",
+				"type": "UTF8"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

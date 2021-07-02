@@ -1,0 +1,59 @@
+{
+	"name": "orders_parquet_dataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "salessrc_Linked_service",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "orders.parquet",
+				"folderPath": "incremental/orders_ADLS_Stage1",
+				"fileSystem": "salessrc"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "or_id",
+				"type": "INT32"
+			},
+			{
+				"name": "order_unique_id",
+				"type": "UTF8"
+			},
+			{
+				"name": "customer_unique_id",
+				"type": "UTF8"
+			},
+			{
+				"name": "product_id",
+				"type": "INT32"
+			},
+			{
+				"name": "order_units",
+				"type": "INT32"
+			},
+			{
+				"name": "order_received_timestamp",
+				"type": "INT96"
+			},
+			{
+				"name": "order_status",
+				"type": "UTF8"
+			},
+			{
+				"name": "payment_id",
+				"type": "UTF8"
+			},
+			{
+				"name": "Discount_Applied",
+				"type": "UTF8"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

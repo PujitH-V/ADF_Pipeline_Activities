@@ -1,0 +1,65 @@
+{
+	"name": "Lookup_Dataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SQL_LinkedService",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"vvindb": "vvin",
+				"testingdb": "testing"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "SubjectId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "SubjectName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "src_Schema",
+				"type": "nvarchar"
+			},
+			{
+				"name": "src_TableName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ADLS_FolderName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Synapse_DW_Schema",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Synapse_DW_TableName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "LoadType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "threshhold_datetime_value",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "ADW_Copy_Lookup",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "metadata",
+			"table": "lookup_master"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

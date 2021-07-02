@@ -1,0 +1,30 @@
+{
+	"name": "Incr_Copy_Sink_ds",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "salessrc_Linked_service",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"filename": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().filename",
+					"type": "Expression"
+				},
+				"folderPath": "incremental",
+				"fileSystem": "salessrc"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

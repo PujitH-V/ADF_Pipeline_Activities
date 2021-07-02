@@ -1,0 +1,38 @@
+{
+	"name": "ml_ds",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "salessrc_Linked_service",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "genome-scores.csv",
+				"folderPath": "ml-25m",
+				"fileSystem": "salessrc"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "movieId",
+				"type": "String"
+			},
+			{
+				"name": "tagId",
+				"type": "String"
+			},
+			{
+				"name": "relevance",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,13 @@
+{
+	"name": "watermark_new_value_dataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SQL_LinkedService",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

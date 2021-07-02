@@ -1,0 +1,37 @@
+{
+	"name": "get_metadata_table_ds",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SQL_LinkedService",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"vvindb": "vvin",
+				"testingdb": "testing"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PersonID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Name",
+				"type": "varchar"
+			},
+			{
+				"name": "LastModifytime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "data_source_table"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

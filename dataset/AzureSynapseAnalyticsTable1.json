@@ -1,0 +1,33 @@
+{
+	"name": "AzureSynapseAnalyticsTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSynapseAnalytics1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [
+			{
+				"name": "movieId",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "tagId",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "relevance",
+				"type": "real",
+				"precision": 7
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "genome_scores"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,29 @@
+{
+	"name": "Metadata_check_trigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "General_activities",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"Folder": "@triggerBody().folderPath",
+					"File": "@triggerBody().fileName"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/salessrc/blobs/incremental",
+			"blobPathEndsWith": ".parquet",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/d28a783a-ff21-4fa6-a4df-0a8d9dd5e636/resourceGroups/storage/providers/Microsoft.Storage/storageAccounts/vvin",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}

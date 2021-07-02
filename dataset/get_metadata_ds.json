@@ -1,0 +1,35 @@
+{
+	"name": "get_metadata_ds",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "salessrc_Linked_service",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "data_source_table.parquet",
+				"folderPath": "incremental/data_source_table",
+				"fileSystem": "salessrc"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "PersonID",
+				"type": "INT32"
+			},
+			{
+				"name": "Name",
+				"type": "UTF8"
+			},
+			{
+				"name": "LastModifytime",
+				"type": "INT96"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

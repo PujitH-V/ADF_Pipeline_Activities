@@ -1,0 +1,9 @@
+{
+	"name": "VVin",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "a3e4bfdc-aca5-4875-a744-2668173a9c89",
+		"tenantId": "29dd09ea-2af3-4165-b546-f7ba7e73b682"
+	}
+}

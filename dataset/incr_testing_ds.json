@@ -1,0 +1,41 @@
+{
+	"name": "incr_testing_ds",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SQL_LinkedService",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"vvindb": "vvin",
+				"testingdb": "testing"
+			}
+		},
+		"parameters": {
+			"schema": {
+				"type": "string"
+			},
+			"table_name": {
+				"type": "string"
+			},
+			"start_ts": {
+				"type": "string"
+			},
+			"end_ts": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().schema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().table_name",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,45 @@
+{
+	"name": "customers_dataflow",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "customers_parquet",
+						"type": "DatasetReference"
+					},
+					"name": "customers"
+				},
+				{
+					"dataset": {
+						"referenceName": "orders_parquet_dataset",
+						"type": "DatasetReference"
+					},
+					"name": "orders"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "customers_sink_ds",
+						"type": "DatasetReference"
+					},
+					"name": "sinkToADLSGen2"
+				}
+			],
+			"transformations": [
+				{
+					"name": "customersJoin"
+				},
+				{
+					"name": "AggregateOrders"
+				},
+				{
+					"name": "customersSelect"
+				}
+			],
+			"script": "source(output(\n\t\tc_id as integer,\n\t\tc_unique_id as string,\n\t\tc_name as string,\n\t\tCustomer_Account_Created_Timestamp as timestamp,\n\t\tcustomer_pincode as string,\n\t\tcustomer_city as string,\n\t\tcustomer_mobile_number as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: true,\n\tignoreNoFilesFound: false,\n\tmoveFiles: ['/incremental/Customers_ADLS_Stage1','incremental_moved/Customers'],\n\tformat: 'parquet') ~> customers\nsource(output(\n\t\tor_id as integer,\n\t\torder_unique_id as string,\n\t\tcustomer_unique_id as string,\n\t\tproduct_id as integer,\n\t\torder_units as integer,\n\t\torder_received_timestamp as timestamp,\n\t\torder_status as string,\n\t\tpayment_id as string,\n\t\tDiscount_Applied as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: true,\n\tignoreNoFilesFound: false,\n\tmoveFiles: ['incremental/orders_ADLS_Stage1','incremental_moved/Orders'],\n\tformat: 'parquet') ~> orders\ncustomers, orders join(c_unique_id == customer_unique_id,\n\tjoinType:'left',\n\tbroadcast: 'auto')~> customersJoin\ncustomersJoin aggregate(groupBy(c_id,\n\t\tc_unique_id,\n\t\tc_name,\n\t\tcustomer_pincode),\n\tor_id = count(or_id)) ~> AggregateOrders\nAggregateOrders select(mapColumn(\n\t\tc_id,\n\t\tc_unique_id,\n\t\tc_name,\n\t\tcustomer_pincode,\n\t\tor_id\n\t),\n\tpartitionBy('hash', 2,\n\t\tc_unique_id\n\t),\n\tskipDuplicateMapInputs: false,\n\tskipDuplicateMapOutputs: false) ~> customersSelect\ncustomersSelect sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tumask: 0022,\n\tsaveOrder: 1) ~> sinkToADLSGen2"
+		}
+	}
+}

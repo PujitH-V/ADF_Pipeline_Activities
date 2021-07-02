@@ -1,0 +1,21 @@
+{
+	"name": "temp_src_dataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SQL_LinkedService",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"vvindb": "vvin",
+				"testingdb": "testing"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "data_source_table"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
