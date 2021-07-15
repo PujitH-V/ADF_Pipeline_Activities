@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "VVin"
+		},
+		"AzureSynapseAnalytics1_connectionString": {
+			"value": ""
+		},
+		"SQL_LinkedService_connectionString": {
+			"value": ""
+		},
+		"dbs_ls_connectionString": {
+			"value": ""
+		},
+		"salessrc_Linked_service_accountKey": {
+			"value": ""
+		},
+		"synapse_ls_connectionString": {
+			"value": ""
+		},
+		"salessrc_Linked_service_properties_typeProperties_url": {
+			"value": "https://vvin.dfs.core.windows.net"
+		},
+		"Metadata_check_trigger_properties_General_activities_parameters_Folder": {
+			"value": "@triggerBody().folderPath"
+		},
+		"Metadata_check_trigger_properties_General_activities_parameters_File": {
+			"value": "@triggerBody().fileName"
+		},
+		"Metadata_check_trigger_properties_typeProperties_scope": {
+			"value": "/subscriptions/d28a783a-ff21-4fa6-a4df-0a8d9dd5e636/resourceGroups/storage/providers/Microsoft.Storage/storageAccounts/vvin"
+		},
+		"trumbling_trigger1_properties_pipeline_parameters_StartTime": {
+			"value": "@trigger().outputs.windowStartTime"
+		}
+	}
+}

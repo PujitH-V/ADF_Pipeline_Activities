@@ -1,0 +1,132 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "VVin"
+		},
+		"AzureSynapseAnalytics1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSynapseAnalytics1'"
+		},
+		"SQL_LinkedService_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SQL_LinkedService'"
+		},
+		"dbs_ls_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'dbs_ls'"
+		},
+		"salessrc_Linked_service_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'salessrc_Linked_service'"
+		},
+		"synapse_ls_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'synapse_ls'"
+		},
+		"salessrc_Linked_service_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://vvin.dfs.core.windows.net"
+		},
+		"Metadata_check_trigger_properties_General_activities_parameters_Folder": {
+			"type": "string",
+			"defaultValue": "@triggerBody().folderPath"
+		},
+		"Metadata_check_trigger_properties_General_activities_parameters_File": {
+			"type": "string",
+			"defaultValue": "@triggerBody().fileName"
+		},
+		"Metadata_check_trigger_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/d28a783a-ff21-4fa6-a4df-0a8d9dd5e636/resourceGroups/storage/providers/Microsoft.Storage/storageAccounts/vvin"
+		},
+		"trumbling_trigger1_properties_pipeline_parameters_StartTime": {
+			"type": "string",
+			"defaultValue": "@trigger().outputs.windowStartTime"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "VVin_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureSynapseAnalytics1_connectionString": {
+						"value": "[parameters('AzureSynapseAnalytics1_connectionString')]"
+					},
+					"SQL_LinkedService_connectionString": {
+						"value": "[parameters('SQL_LinkedService_connectionString')]"
+					},
+					"dbs_ls_connectionString": {
+						"value": "[parameters('dbs_ls_connectionString')]"
+					},
+					"salessrc_Linked_service_accountKey": {
+						"value": "[parameters('salessrc_Linked_service_accountKey')]"
+					},
+					"synapse_ls_connectionString": {
+						"value": "[parameters('synapse_ls_connectionString')]"
+					},
+					"salessrc_Linked_service_properties_typeProperties_url": {
+						"value": "[parameters('salessrc_Linked_service_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "VVin_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"Metadata_check_trigger_properties_General_activities_parameters_Folder": {
+						"value": "[parameters('Metadata_check_trigger_properties_General_activities_parameters_Folder')]"
+					},
+					"Metadata_check_trigger_properties_General_activities_parameters_File": {
+						"value": "[parameters('Metadata_check_trigger_properties_General_activities_parameters_File')]"
+					},
+					"Metadata_check_trigger_properties_typeProperties_scope": {
+						"value": "[parameters('Metadata_check_trigger_properties_typeProperties_scope')]"
+					},
+					"trumbling_trigger1_properties_pipeline_parameters_StartTime": {
+						"value": "[parameters('trumbling_trigger1_properties_pipeline_parameters_StartTime')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'VVin_ArmTemplate_0')]"
+			]
+		}
+	]
+}
