@@ -31,6 +31,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'synapse_ls'"
 		},
+		"vvin1_SQL_Sink_LS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'vvin1_SQL_Sink_LS'"
+		},
 		"HttpServer1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://data.bts.gov/api/views/crem-w557/rows.csv?accessType=DOWNLOAD"
@@ -99,6 +103,9 @@
 					},
 					"synapse_ls_connectionString": {
 						"value": "[parameters('synapse_ls_connectionString')]"
+					},
+					"vvin1_SQL_Sink_LS_connectionString": {
+						"value": "[parameters('vvin1_SQL_Sink_LS_connectionString')]"
 					},
 					"HttpServer1_properties_typeProperties_url": {
 						"value": "[parameters('HttpServer1_properties_typeProperties_url')]"

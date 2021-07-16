@@ -31,6 +31,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'synapse_ls'"
 		},
+		"vvin1_SQL_Sink_LS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'vvin1_SQL_Sink_LS'"
+		},
 		"HttpServer1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://data.bts.gov/api/views/crem-w557/rows.csv?accessType=DOWNLOAD"
@@ -208,13 +212,10 @@
 											"partitionOption": "None"
 										},
 										"sink": {
-											"type": "ParquetSink",
-											"storeSettings": {
-												"type": "AzureBlobFSWriteSettings"
-											},
-											"formatSettings": {
-												"type": "ParquetWriteSettings"
-											}
+											"type": "AzureSqlSink",
+											"writeBehavior": "insert",
+											"tableOption": "autoCreate",
+											"disableMetricsCollection": false
 										},
 										"enableStaging": false,
 										"translator": {
@@ -244,15 +245,15 @@
 									],
 									"outputs": [
 										{
-											"referenceName": "Full_Load_Sink_Dataset",
+											"referenceName": "vvin1_sink_ds",
 											"type": "DatasetReference",
 											"parameters": {
-												"Folder": {
-													"value": "@concat('incremental/',item().ADLS_FolderName)",
+												"sink_Schema": {
+													"value": "@item().src_Schema",
 													"type": "Expression"
 												},
-												"File": {
-													"value": "@concat(item().src_TableName,'.parquet')",
+												"sink_TableName": {
+													"value": "@item().src_TableName",
 													"type": "Expression"
 												}
 											}
@@ -269,7 +270,7 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/Lookup_Dataset')]",
 				"[concat(variables('factoryId'), '/datasets/Full_Load_Src_Dataset')]",
-				"[concat(variables('factoryId'), '/datasets/Full_Load_Sink_Dataset')]"
+				"[concat(variables('factoryId'), '/datasets/vvin1_sink_ds')]"
 			]
 		},
 		{
@@ -1802,6 +1803,41 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/vvin1_sink_ds')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "vvin1_SQL_Sink_LS",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"sink_Schema": {
+						"type": "string"
+					},
+					"sink_TableName": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": {
+						"value": "@dataset().sink_Schema",
+						"type": "Expression"
+					},
+					"table": {
+						"value": "@dataset().sink_TableName",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/vvin1_SQL_Sink_LS')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/watermark_new_value_dataset')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1922,6 +1958,19 @@
 				"type": "AzureSqlDatabase",
 				"typeProperties": {
 					"connectionString": "[parameters('synapse_ls_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/vvin1_SQL_Sink_LS')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('vvin1_SQL_Sink_LS_connectionString')]"
 				}
 			},
 			"dependsOn": []

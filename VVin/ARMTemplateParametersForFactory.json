@@ -23,6 +23,9 @@
 		"synapse_ls_connectionString": {
 			"value": ""
 		},
+		"vvin1_SQL_Sink_LS_connectionString": {
+			"value": ""
+		},
 		"HttpServer1_properties_typeProperties_url": {
 			"value": "https://data.bts.gov/api/views/crem-w557/rows.csv?accessType=DOWNLOAD"
 		},
