@@ -1,0 +1,30 @@
+{
+	"name": "vvin1_sink_ds",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "vvin1_SQL_Sink_LS",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"sink_Schema": {
+				"type": "string"
+			},
+			"sink_TableName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().sink_Schema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().sink_TableName",
+				"type": "Expression"
+			}
+		}
+	}
+}

@@ -64,13 +64,10 @@
 									"partitionOption": "None"
 								},
 								"sink": {
-									"type": "ParquetSink",
-									"storeSettings": {
-										"type": "AzureBlobFSWriteSettings"
-									},
-									"formatSettings": {
-										"type": "ParquetWriteSettings"
-									}
+									"type": "AzureSqlSink",
+									"writeBehavior": "insert",
+									"tableOption": "autoCreate",
+									"disableMetricsCollection": false
 								},
 								"enableStaging": false,
 								"translator": {
@@ -100,15 +97,15 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "Full_Load_Sink_Dataset",
+									"referenceName": "vvin1_sink_ds",
 									"type": "DatasetReference",
 									"parameters": {
-										"Folder": {
-											"value": "@concat('incremental/',item().ADLS_FolderName)",
+										"sink_Schema": {
+											"value": "@item().src_Schema",
 											"type": "Expression"
 										},
-										"File": {
-											"value": "@concat(item().src_TableName,'.parquet')",
+										"sink_TableName": {
+											"value": "@item().src_TableName",
 											"type": "Expression"
 										}
 									}
