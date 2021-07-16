@@ -687,7 +687,7 @@
 									]
 								},
 								{
-									"name": "Stored procedure1",
+									"name": "update_timestamp_sp",
 									"type": "SqlServerStoredProcedure",
 									"dependsOn": [
 										{
