@@ -1,0 +1,9 @@
+{
+	"name": "vinn",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "c3369b16-5d9b-4521-b47d-950f04d727d4",
+		"tenantId": "8ba96b19-fbcf-4882-85bd-24e872271135"
+	}
+}
