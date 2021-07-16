@@ -204,8 +204,7 @@
 								"referenceName": "SQL_LinkedService",
 								"type": "LinkedServiceReference",
 								"parameters": {
-									"vvindb": "vvin",
-									"testingdb": "testing"
+									"vvindb": "vvin"
 								}
 							}
 						}
