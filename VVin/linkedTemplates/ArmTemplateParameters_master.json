@@ -5,6 +5,9 @@
 		"factoryName": {
 			"value": "VVin"
 		},
+		"AzureBlobStorage1_connectionString": {
+			"value": ""
+		},
 		"AzureSynapseAnalytics1_connectionString": {
 			"value": ""
 		},
@@ -19,6 +22,9 @@
 		},
 		"synapse_ls_connectionString": {
 			"value": ""
+		},
+		"HttpServer1_properties_typeProperties_url": {
+			"value": "https://data.bts.gov/api/views/crem-w557/rows.csv?accessType=DOWNLOAD"
 		},
 		"salessrc_Linked_service_properties_typeProperties_url": {
 			"value": "https://vvin.dfs.core.windows.net"

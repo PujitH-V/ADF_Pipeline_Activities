@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "VVin"
 		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		},
 		"AzureSynapseAnalytics1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSynapseAnalytics1'"
@@ -26,6 +30,10 @@
 		"synapse_ls_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'synapse_ls'"
+		},
+		"HttpServer1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://data.bts.gov/api/views/crem-w557/rows.csv?accessType=DOWNLOAD"
 		},
 		"salessrc_Linked_service_properties_typeProperties_url": {
 			"type": "string",
@@ -74,6 +82,9 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"AzureBlobStorage1_connectionString": {
+						"value": "[parameters('AzureBlobStorage1_connectionString')]"
+					},
 					"AzureSynapseAnalytics1_connectionString": {
 						"value": "[parameters('AzureSynapseAnalytics1_connectionString')]"
 					},
@@ -88,6 +99,9 @@
 					},
 					"synapse_ls_connectionString": {
 						"value": "[parameters('synapse_ls_connectionString')]"
+					},
+					"HttpServer1_properties_typeProperties_url": {
+						"value": "[parameters('HttpServer1_properties_typeProperties_url')]"
 					},
 					"salessrc_Linked_service_properties_typeProperties_url": {
 						"value": "[parameters('salessrc_Linked_service_properties_typeProperties_url')]"
