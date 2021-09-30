@@ -1,0 +1,9 @@
+{
+	"name": "Pujith-personal-adf",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "8047cc51-f46a-472a-9df6-b6cd0c6f5d44",
+		"tenantId": "c4afff3a-e02b-44fc-9d54-00c18f65a601"
+	}
+}
